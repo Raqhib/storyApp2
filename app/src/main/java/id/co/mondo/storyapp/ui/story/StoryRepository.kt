@@ -27,7 +27,7 @@ class StoryRepository(
         }
     }
 
-    suspend fun getStories(): Result<List<ListStoryItem>> {
+    suspend fun getStories(location: Int = 0): Result<List<ListStoryItem>> {
         return try {
             val token = userPreferences.token.firstOrNull()
             Log.d("StoryRepository", "Menggunakan token: $token")
@@ -36,7 +36,7 @@ class StoryRepository(
                 return Result.failure(Exception("Token tidak ditemukan"))
             }
 
-            val response = api.getAllStories()
+            val response = api.getAllStories(location = location)
             Log.d("StoryRepository", "Respons server: ${response.message}")
             if (response.listStory.isNotEmpty()) {
                 Log.d("StoryRepository", "Berhasil mendapatkan cerita: ${response.listStory.size}")

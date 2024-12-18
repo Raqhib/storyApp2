@@ -25,12 +25,12 @@ class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel()
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage = _errorMessage.asLiveData()
 
-    fun fetchStories() {
+    fun fetchStories(location: Int = 0) {
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
 
-            val result = storyRepository.getStories()
+            val result = storyRepository.getStories(location = location)
 
             if (result.isSuccess) {
                 _stories.value = result.getOrDefault(emptyList())
