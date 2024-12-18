@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import androidx.paging.liveData
 import id.co.mondo.storyapp.data.StoryPagingSource
 import id.co.mondo.storyapp.data.network.response.FileUploadResponse
@@ -16,7 +15,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class StoryRepository(
+open class StoryRepository(
     private val api: ApiService,
     private val userPreferences: UserPreferences
     ) {

@@ -34,11 +34,9 @@ class LoginActivity : AppCompatActivity() {
         userPreferences = UserPreferences.getInstance(this)
 
         lifecycleScope.launch {
-            // Cek token yang tersimpan
             val token = userPreferences.token.firstOrNull()
             Log.d("LoginActivity", "Token ditemukan: $token")
             if (!token.isNullOrEmpty()) {
-                // Jika token ada, langsung ke MainActivity
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -76,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
 
                         val token = it.loginResult.token
                         Log.d("LoginActivity", "Token dari API: $token")
-                        // Simpan token dan username ke UserPreferences
                         if (!token.isNullOrEmpty()) {
                             userPreferences.saveToken(token)
                             userPreferences.saveUserName(it.loginResult.name)
@@ -85,7 +82,6 @@ class LoginActivity : AppCompatActivity() {
                             Log.e("LoginActivity", "Token kosong atau null.")
                         }
 
-                        // Navigasi ke MainActivity
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()

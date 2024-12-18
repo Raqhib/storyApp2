@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import id.co.mondo.storyapp.data.network.response.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -29,8 +28,6 @@ class UserPreferences(private val context: Context) {
         }
     }
 
-
-    // Fungsi untuk mengambil nama pengguna
     val userName: Flow<String?> = context.dataStore.data.map { preferences ->
         preferences[USER_NAME_KEY]
     }
@@ -41,7 +38,6 @@ class UserPreferences(private val context: Context) {
         savedToken
     }
 
-    // Fungsi untuk menyimpan nama pengguna
     suspend fun saveUserName(name: String) {
         context.dataStore.edit { preferences ->
             preferences[USER_NAME_KEY] = name

@@ -21,12 +21,10 @@ class DetailActivity : AppCompatActivity() {
         window.sharedElementReturnTransition = TransitionInflater.from(this)
             .inflateTransition(android.R.transition.move)
 
-        // Ambil data dari Intent
         val name = intent.getStringExtra("STORY_NAME")
         val description = intent.getStringExtra("STORY_DESCRIPTION")
         val photoUrl = intent.getStringExtra("STORY_PHOTO")
 
-        // Set data ke view
         if (name != null) {
             binding.tvDetailName.text = name
         } else {
@@ -39,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
             binding.tvDetailDescription.text = "Deskripsi tidak tersedia"
         }
 
-        // Gunakan Glide untuk memuat gambar
         Glide.with(this)
             .load(photoUrl)
             .into(binding.ivDetailPhoto)

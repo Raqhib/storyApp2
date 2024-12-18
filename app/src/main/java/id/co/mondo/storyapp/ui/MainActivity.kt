@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         storyViewModel.storyPaging.observe(this) { pagingData ->
             lifecycleScope.launch {
-                storyAdapter.submitData(pagingData) // Perbarui adapter dengan data cerita
+                storyAdapter.submitData(pagingData)
             }
         }
 
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
         storyViewModel.errorMessage.observe(this) { errorMessage ->
             errorMessage?.let {
-                showToast(it) // Tampilkan pesan error jika ada
+                showToast(it)
             }
         }
     }

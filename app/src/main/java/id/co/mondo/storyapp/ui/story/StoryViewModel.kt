@@ -66,9 +66,5 @@ class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel()
         }
     }
 
-
-    suspend fun clearToken() {
-        storyRepository.clearToken()
-    }
 }
 
