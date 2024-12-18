@@ -1,4 +1,4 @@
-package id.co.mondo.storyapp.network.retrofit
+package id.co.mondo.storyapp.data.network.retrofit
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

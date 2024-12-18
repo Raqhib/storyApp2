@@ -1,4 +1,4 @@
-package id.co.mondo.storyapp.helper
+package id.co.mondo.storyapp.data.helper
 
 import android.content.Context
 import android.util.AttributeSet

@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import id.co.mondo.storyapp.databinding.ActivityRegisterBinding
-import id.co.mondo.storyapp.network.retrofit.ApiConfig
+import id.co.mondo.storyapp.data.network.retrofit.ApiConfig
 import id.co.mondo.storyapp.ui.auth.AuthRepository
 import kotlinx.coroutines.launch
 

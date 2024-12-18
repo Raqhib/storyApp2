@@ -1,10 +1,10 @@
-package id.co.mondo.storyapp.network.retrofit
+package id.co.mondo.storyapp.data.network.retrofit
 
-import id.co.mondo.storyapp.network.response.FileUploadResponse
-import id.co.mondo.storyapp.network.response.LoginResponse
-import id.co.mondo.storyapp.network.response.RegisterResponse
-import id.co.mondo.storyapp.network.response.StoryDetailResponse
-import id.co.mondo.storyapp.network.response.StoryResponse
+import id.co.mondo.storyapp.data.network.response.FileUploadResponse
+import id.co.mondo.storyapp.data.network.response.LoginResponse
+import id.co.mondo.storyapp.data.network.response.RegisterResponse
+import id.co.mondo.storyapp.data.network.response.StoryDetailResponse
+import id.co.mondo.storyapp.data.network.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
@@ -36,6 +36,8 @@ interface ApiService {
     @GET("stories")
     suspend fun getAllStories(
         @Query("location") location : Int = 0,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
     ): StoryResponse
 
     @GET("stories/{id}")

@@ -1,11 +1,14 @@
 package id.co.mondo.storyapp.ui.story
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import id.co.mondo.storyapp.network.response.FileUploadResponse
-import id.co.mondo.storyapp.network.response.ListStoryItem
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import id.co.mondo.storyapp.data.network.response.FileUploadResponse
+import id.co.mondo.storyapp.data.network.response.ListStoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -27,9 +30,6 @@ class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel()
 
     fun fetchStories(location: Int = 0) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null
-
             val result = storyRepository.getStories(location = location)
 
             if (result.isSuccess) {
@@ -40,10 +40,11 @@ class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel()
                 _errorMessage.value = errorMessage
                 Log.e("StoryViewModel", "Gagal mengambil cerita: $errorMessage")
             }
-
-            _isLoading.value = false
         }
     }
+
+    val storyPaging: LiveData<PagingData<ListStoryItem>> =
+        storyRepository.getPagedStories().cachedIn(viewModelScope)
 
     fun uploadStory(photo: MultipartBody.Part, description: RequestBody) {
         viewModelScope.launch {

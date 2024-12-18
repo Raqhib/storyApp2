@@ -1,9 +1,16 @@
 package id.co.mondo.storyapp.ui.story
 
 import android.util.Log
-import id.co.mondo.storyapp.network.response.FileUploadResponse
-import id.co.mondo.storyapp.network.response.ListStoryItem
-import id.co.mondo.storyapp.network.retrofit.ApiService
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.paging.liveData
+import id.co.mondo.storyapp.data.StoryPagingSource
+import id.co.mondo.storyapp.data.network.response.FileUploadResponse
+import id.co.mondo.storyapp.data.network.response.ListStoryItem
+import id.co.mondo.storyapp.data.network.retrofit.ApiService
 import id.co.mondo.storyapp.ui.utils.UserPreferences
 import kotlinx.coroutines.flow.firstOrNull
 import okhttp3.MultipartBody
@@ -49,6 +56,17 @@ class StoryRepository(
             Log.e("StoryRepository", "getStrories() - Error: ${e.message}")
             Result.failure(Exception("Gagal mengunggah cerita. Penyebab: ${e.message ?: "Kesalahan tidak diketahui"}", e))
         }
+    }
+
+    fun getPagedStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(api)
+            }
+        ).liveData
     }
 
     suspend fun uploadStory(photo: MultipartBody.Part, description: RequestBody): Result<FileUploadResponse> {

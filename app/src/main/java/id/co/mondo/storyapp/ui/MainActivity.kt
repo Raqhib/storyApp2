@@ -104,8 +104,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        storyViewModel.stories.observe(this) { stories ->
-            storyAdapter.setStories(stories) // Perbarui adapter dengan data cerita
+        storyViewModel.storyPaging.observe(this) { pagingData ->
+            lifecycleScope.launch {
+                storyAdapter.submitData(pagingData) // Perbarui adapter dengan data cerita
+            }
         }
 
         storyViewModel.isLoading.observe(this) { isLoading ->

@@ -2,7 +2,7 @@ package id.co.mondo.storyapp.ui.utils
 
 import android.content.Context
 import android.util.Log
-import id.co.mondo.storyapp.network.retrofit.ApiConfig
+import id.co.mondo.storyapp.data.network.retrofit.ApiConfig
 import id.co.mondo.storyapp.ui.story.StoryRepository
 
 

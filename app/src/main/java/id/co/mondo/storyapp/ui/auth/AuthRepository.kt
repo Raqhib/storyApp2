@@ -1,8 +1,8 @@
 package id.co.mondo.storyapp.ui.auth
 
-import id.co.mondo.storyapp.network.response.LoginResponse
-import id.co.mondo.storyapp.network.response.RegisterResponse
-import id.co.mondo.storyapp.network.retrofit.ApiService
+import id.co.mondo.storyapp.data.network.response.LoginResponse
+import id.co.mondo.storyapp.data.network.response.RegisterResponse
+import id.co.mondo.storyapp.data.network.retrofit.ApiService
 
 class AuthRepository(private val apiService: ApiService) {
 

@@ -1,4 +1,4 @@
-package id.co.mondo.storyapp.network.response
+package id.co.mondo.storyapp.data.network.response
 
 import com.google.gson.annotations.SerializedName
 

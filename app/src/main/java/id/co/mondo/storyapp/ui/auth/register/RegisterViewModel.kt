@@ -2,7 +2,7 @@ package id.co.mondo.storyapp.ui.auth.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.co.mondo.storyapp.network.response.RegisterResponse
+import id.co.mondo.storyapp.data.network.response.RegisterResponse
 import id.co.mondo.storyapp.ui.auth.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
