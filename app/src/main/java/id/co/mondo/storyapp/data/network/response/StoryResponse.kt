@@ -1,5 +1,7 @@
 package id.co.mondo.storyapp.data.network.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class StoryResponse(
@@ -24,10 +26,12 @@ data class StoryDetailResponse(
 	@field:SerializedName("story")
 	val story: ListStoryItem? = null
 )
-
+@Entity(tableName = "stories")
 data class ListStoryItem(
+
+	@PrimaryKey
 	@SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@SerializedName("name")
 	val name: String? = null,

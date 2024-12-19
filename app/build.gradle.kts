@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -33,6 +35,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     buildFeatures {
@@ -48,6 +51,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.maps)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,7 +71,6 @@ dependencies {
 
     implementation(libs.androidx.paging.runtime.ktx)
 
-
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.kotlinx.coroutines.test)
 
@@ -76,5 +79,9 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
 
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.room.compiler)
+
+    implementation(libs.androidx.room.paging)
 
 }

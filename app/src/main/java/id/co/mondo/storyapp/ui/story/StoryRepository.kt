@@ -2,11 +2,14 @@ package id.co.mondo.storyapp.ui.story
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import id.co.mondo.storyapp.data.StoryDatabase
 import id.co.mondo.storyapp.data.StoryPagingSource
+import id.co.mondo.storyapp.data.StoryRemoteMediator
 import id.co.mondo.storyapp.data.network.response.FileUploadResponse
 import id.co.mondo.storyapp.data.network.response.ListStoryItem
 import id.co.mondo.storyapp.data.network.retrofit.ApiService
@@ -17,16 +20,17 @@ import okhttp3.RequestBody
 
 open class StoryRepository(
     private val api: ApiService,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    private val storyDatabase: StoryDatabase
     ) {
 
     companion object {
         @Volatile
         private var INSTANCE: StoryRepository? = null
 
-        fun getInstance(api: ApiService, userPreferences: UserPreferences): StoryRepository {
+        fun getInstance(api: ApiService, userPreferences: UserPreferences, storyDatabase: StoryDatabase): StoryRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = StoryRepository(api, userPreferences)
+                val instance = StoryRepository(api, userPreferences, storyDatabase)
                 INSTANCE = instance
                 instance
             }
@@ -58,12 +62,15 @@ open class StoryRepository(
     }
 
     fun getPagedStories(): LiveData<PagingData<ListStoryItem>> {
+        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, api),
             pagingSourceFactory = {
-                StoryPagingSource(api)
+//                StoryPagingSource(api)
+                storyDatabase.storyDao().getAllStory()
             }
         ).liveData
     }

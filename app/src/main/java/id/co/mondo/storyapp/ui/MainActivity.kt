@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.co.mondo.storyapp.MapsActivity
 import id.co.mondo.storyapp.R
 import id.co.mondo.storyapp.databinding.ActivityMainBinding
+import id.co.mondo.storyapp.ui.adapter.LoadingStateAdapter
 import id.co.mondo.storyapp.ui.adapter.StoryAdapter
 import id.co.mondo.storyapp.ui.auth.login.LoginActivity
 import id.co.mondo.storyapp.ui.story.AddStoryActivity
@@ -97,9 +98,15 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun setupRecyclerView() {
+        val loadStateAdapter = LoadingStateAdapter{
+            storyAdapter.retry()
+        }
+
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = storyAdapter
+            adapter = storyAdapter.withLoadStateFooter(
+                footer = loadStateAdapter
+            )
         }
     }
 
