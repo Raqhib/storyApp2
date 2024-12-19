@@ -3,6 +3,7 @@ package id.co.mondo.storyapp.ui.auth.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,7 +50,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString().trim()
+            showLoading(true)
+            val email = binding.emailEditTextLogin.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
@@ -70,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginState.collect { response ->
                 response?.let {
                     if (!it.error!!) {
+                        showLoading(false)
                         Toast.makeText(this@LoginActivity, "Login berhasil: ${it.loginResult.name}", Toast.LENGTH_SHORT).show()
 
                         val token = it.loginResult.token
@@ -86,10 +89,15 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
+                        showLoading(false)
                         Toast.makeText(this@LoginActivity, "Login gagal: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

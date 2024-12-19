@@ -17,13 +17,13 @@ import okhttp3.RequestBody
 class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
     private val _stories = MutableStateFlow<List<ListStoryItem>>(emptyList())
-    val stories = _stories.asLiveData() // Konversi ke LiveData
+    val stories = _stories.asLiveData()
 
     private val _uploadResult = MutableStateFlow<FileUploadResponse?>(null)
-    val uploadResult = _uploadResult.asLiveData() // Konversi ke LiveData
+    val uploadResult = _uploadResult.asLiveData()
 
     private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asLiveData() // Konversi ke LiveData
+    val isLoading = _isLoading.asLiveData()
 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage = _errorMessage.asLiveData()

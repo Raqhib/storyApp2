@@ -5,6 +5,8 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import id.co.mondo.storyapp.data.local.RemoteKeys
+import id.co.mondo.storyapp.data.local.StoryDatabase
 import id.co.mondo.storyapp.data.network.response.ListStoryItem
 import id.co.mondo.storyapp.data.network.retrofit.ApiService
 

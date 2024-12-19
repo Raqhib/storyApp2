@@ -24,6 +24,8 @@ roomPaging = "2.4.0-rc01"
 roomCompiler = "2.5.2"
 roomRuntime = "2.5.2"
 roomKtx = "2.6.1"
+espressoIntents = "3.4.0"
+espressoIdlingResource = "3.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +55,8 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoIntents" }
+androidx-espresso-idling-resource = { group = "androidx.test.espresso", name = "espresso-idling-resource", version.ref = "espressoIdlingResource" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

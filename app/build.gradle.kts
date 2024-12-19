@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.maps)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.espresso.idling.resource)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -83,5 +84,7 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.androidx.room.paging)
+
+    androidTestImplementation(libs.espresso.intents)
 
 }

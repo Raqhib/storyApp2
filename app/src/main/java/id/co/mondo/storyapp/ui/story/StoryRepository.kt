@@ -7,8 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import id.co.mondo.storyapp.data.StoryDatabase
-import id.co.mondo.storyapp.data.StoryPagingSource
+import id.co.mondo.storyapp.data.local.StoryDatabase
 import id.co.mondo.storyapp.data.StoryRemoteMediator
 import id.co.mondo.storyapp.data.network.response.FileUploadResponse
 import id.co.mondo.storyapp.data.network.response.ListStoryItem
@@ -69,7 +68,6 @@ open class StoryRepository(
             ),
             remoteMediator = StoryRemoteMediator(storyDatabase, api),
             pagingSourceFactory = {
-//                StoryPagingSource(api)
                 storyDatabase.storyDao().getAllStory()
             }
         ).liveData
@@ -89,7 +87,7 @@ open class StoryRepository(
                 Result.success(response)
             }
         } catch (e: Exception) {
-            Log.e("UploadStoryError", "Error: ${e.localizedMessage}") // Debug error
+            Log.e("UploadStoryError", "Error: ${e.localizedMessage}")
             Result.failure(Exception("Gagal mengunggah: ${e.localizedMessage}", e))
         }
     }

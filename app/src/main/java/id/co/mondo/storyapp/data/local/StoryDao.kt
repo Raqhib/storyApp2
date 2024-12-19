@@ -1,4 +1,4 @@
-package id.co.mondo.storyapp.data
+package id.co.mondo.storyapp.data.local
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

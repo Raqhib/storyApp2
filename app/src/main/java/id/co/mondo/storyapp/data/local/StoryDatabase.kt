@@ -1,4 +1,4 @@
-package id.co.mondo.storyapp.data
+package id.co.mondo.storyapp.data.local
 
 import android.content.Context
 import androidx.room.Database
