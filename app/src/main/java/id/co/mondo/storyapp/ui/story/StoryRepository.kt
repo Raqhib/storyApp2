@@ -11,6 +11,7 @@ import id.co.mondo.storyapp.data.local.StoryDatabase
 import id.co.mondo.storyapp.data.StoryRemoteMediator
 import id.co.mondo.storyapp.data.network.response.FileUploadResponse
 import id.co.mondo.storyapp.data.network.response.ListStoryItem
+import id.co.mondo.storyapp.data.network.retrofit.ApiConfig
 import id.co.mondo.storyapp.data.network.retrofit.ApiService
 import id.co.mondo.storyapp.ui.utils.UserPreferences
 import kotlinx.coroutines.flow.firstOrNull
@@ -44,8 +45,7 @@ open class StoryRepository(
                 Log.e("StoryRepository", "Token tidak ditemukan")
                 return Result.failure(Exception("Token tidak ditemukan"))
             }
-
-            val response = api.getAllStories(location = location)
+            val response = api.getAllStories(ApiConfig.getAuthHeader(token),location = location)
             Log.d("StoryRepository", "Respons server: ${response.message}")
             if (response.listStory.isNotEmpty()) {
                 Log.d("StoryRepository", "Berhasil mendapatkan cerita: ${response.listStory.size}")
@@ -66,7 +66,7 @@ open class StoryRepository(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, api),
+            remoteMediator = StoryRemoteMediator(storyDatabase, api, userPreferences),
             pagingSourceFactory = {
                 storyDatabase.storyDao().getAllStory()
             }
@@ -80,7 +80,7 @@ open class StoryRepository(
 
             Log.d("Token", "Token: $token") // Debug token
 
-            val response = api.uploadStory(photo, description)
+            val response = api.uploadStory(ApiConfig.getAuthHeader(token) ,photo, description)
             if (response.error) {
                 Result.failure(Exception(response.message))
             } else {

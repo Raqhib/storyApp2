@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import id.co.mondo.storyapp.MapsActivity
 import id.co.mondo.storyapp.R
 import id.co.mondo.storyapp.databinding.ActivityMainBinding
@@ -134,8 +135,8 @@ class MainActivity : AppCompatActivity() {
             val userPreferences = UserPreferences.getInstance(this@MainActivity)
             userPreferences.clearToken()
             userPreferences.clearUserName()
-            Log.d("MainActivity", "Token dan nama pengguna berhasil dihapus")
-
+            Log.d("MainActivity", "Token dan nama pengguna berhasil dihapus ${userPreferences}")
+            Log.d("MainActivity", "username: ${Gson().toJson(userPreferences.userName)}, token: ${Gson().toJson(userPreferences.token)}")
             Toast.makeText(this@MainActivity, "Logout berhasil", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this@MainActivity, LoginActivity::class.java)

@@ -12,7 +12,7 @@ object Injection {
         val pref = UserPreferences.getInstance(context)
         val user = pref.getUser()
         Log.d("Injection", "Token ditemukan: ${user.token}")
-        val apiService = ApiConfig.getApiService(user.token)
+        val apiService = ApiConfig.getApiService()
         val database = StoryDatabase.getDatabase(context)
         Log.d("Injection", "ApiService berhasil dibuat dengan token")
         return StoryRepository.getInstance(apiService, pref, database)

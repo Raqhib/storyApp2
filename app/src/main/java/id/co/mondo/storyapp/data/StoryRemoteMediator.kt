@@ -8,10 +8,13 @@ import androidx.room.withTransaction
 import id.co.mondo.storyapp.data.local.RemoteKeys
 import id.co.mondo.storyapp.data.local.StoryDatabase
 import id.co.mondo.storyapp.data.network.response.ListStoryItem
+import id.co.mondo.storyapp.data.network.retrofit.ApiConfig
 import id.co.mondo.storyapp.data.network.retrofit.ApiService
+import id.co.mondo.storyapp.ui.utils.UserPreferences
+import kotlinx.coroutines.flow.firstOrNull
 
 @OptIn(ExperimentalPagingApi::class)
-class StoryRemoteMediator(private val database: StoryDatabase, private val apiService: ApiService) :
+class StoryRemoteMediator(private val database: StoryDatabase, private val apiService: ApiService, private val userPreferences: UserPreferences) :
     RemoteMediator<Int, ListStoryItem>() {
 
     private companion object {
@@ -43,7 +46,9 @@ class StoryRemoteMediator(private val database: StoryDatabase, private val apiSe
         }
 
         try {
-            val responseData = apiService.getAllStories(0,page, state.config.pageSize)
+            val token = userPreferences.token.firstOrNull()
+                ?: return MediatorResult.Error(Exception("Token tidak ditemukan"))
+            val responseData = apiService.getAllStories(ApiConfig.getAuthHeader(token),0,page, state.config.pageSize)
             val endOfPaginationReached = responseData.listStory.isEmpty()
 
             database.withTransaction {
